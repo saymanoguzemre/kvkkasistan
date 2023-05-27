@@ -19,13 +19,13 @@ return new class extends Migration
 
         DB::table('datashares')->insert([
             ['datashare' => 'Gerçek kişiler veya özel hukuk tüzel kişileri'],
-            ['datashare' => 'Herkese açık'],
             ['datashare' => 'Hissedarlar'],
             ['datashare' => 'İş Ortakları'],
             ['datashare' => 'İştirakler ve bağlı ortaklıklar'],
             ['datashare' => 'Tedarikçiler'],
             ['datashare' => 'Topluluk Şirketleri'],
             ['datashare' => 'Yetkili Kamu Kurum ve Kuruluşları'],
+            ['datashare' => 'Herkese açık'],
         ]);
     }
 

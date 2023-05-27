@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Datashare extends Model
 {
     use HasFactory;
+
+    public function datasharesForms()
+    {
+        return $this->hasMany(DatashareForm::class);
+    }
 }

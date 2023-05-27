@@ -18,6 +18,24 @@ class VariableController extends Controller
 
     public function assign($text)
     {
+        $datashares = '';
+        $infopurposes = '';
+        $datacategories = '';
+        foreach ($this->form->datashares as $datashare)
+        {
+            $datashares .= $datashare->datashare.', ';
+        }
+        foreach ($this->form->infopurposes as $infopurpose)
+        {
+            $infopurposes .= $infopurpose->purpose.', ';
+        }
+        foreach ($this->form->datacategories as $datacategory)
+        {
+            $datacategories .= $datacategory->name.', ';
+        }
+        $datashares = rtrim($datashares,', ');
+        $infopurposes = rtrim($infopurposes,', ');
+        $datacategories = rtrim($datacategories,', ');
 
         $text = Str::of($text)
             ->replace('$$SEHIR$$',$this->form->town->city->city)
@@ -28,12 +46,12 @@ class VariableController extends Controller
             ->replace('$$VERGINO$$',$this->form->taxNo)
             ->replace('$$TITLE$$',$this->form->companyName)
             ->replace('$$BRAND$$',$this->form->companyNameShort)
-            #->replace('$$PERSONELVERIKATEGORI$$','')
-            #->replace('$$VERIAMAC$$','')
-            #->replace('$$AKTARIM$$','')
+            ->replace('$$PERSONELVERIKATEGORI$$',$datacategories)
+            ->replace('$$VERIAMAC$$',$infopurposes)
+            ->replace('$$AKTARIM$$',$datashares)
             ->replace('$$MAIL$$',$this->form->email)
             ->replace('$$EPOSTA$$',$this->form->email)
-            #->replace('$$MUSTERIVERIKATEGORI$$','')
+            ->replace('$$MUSTERIVERIKATEGORI$$',$datacategories)
             ->replace('$$SITE$$',$this->form->website)
             ->replace('$$SİTE$$',$this->form->website);
 
