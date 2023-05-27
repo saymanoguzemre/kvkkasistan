@@ -297,7 +297,7 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'Dökümanlar',
+            'text' => 'dokümanlar',
             'icon' => 'fa-solid fa-fw fa-file-signature',
             'route'  => 'admin.documents.index',
         ],

@@ -23,7 +23,7 @@ return new class extends Migration
             ['documenttype' => 'Aydınlatma Metni - Bülten Üyeliği'],
             ['documenttype' => 'İlgili Kişi Başvuru Formu'],
             ['documenttype' => 'Açık Rıza Formu - Tedarikçi ve İlgili Taraf'],
-            ['documenttype' => 'Döküman Kullanım Rehberi'],
+            ['documenttype' => 'doküman Kullanım Rehberi'],
             ['documenttype' => 'Çerez Politikası'],
             ['documenttype' => 'Çerez Rehberi'],
             ['documenttype' => 'Kişisel Verilerin Korunması ve İşlenmesi Politikası'],
