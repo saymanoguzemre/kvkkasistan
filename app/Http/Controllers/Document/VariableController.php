@@ -23,19 +23,16 @@ class VariableController extends Controller
         $datacategories = '';
         foreach ($this->form->datashares as $datashare)
         {
-            $datashares .= $datashare->datashare.'\n ';
+            $datashares .= $datashare->datashare.'<br>';
         }
         foreach ($this->form->infopurposes as $infopurpose)
         {
-            $infopurposes .= $infopurpose->purpose.'\n ';
+            $infopurposes .= $infopurpose->purpose.'<br>';
         }
         foreach ($this->form->datacategories as $datacategory)
         {
-            $datacategories .= $datacategory->name.'\n ';
+            $datacategories .= $datacategory->name.'<br>';
         }
-        $datashares = rtrim($datashares,'\n ');
-        $infopurposes = rtrim($infopurposes,'\n ');
-        $datacategories = rtrim($datacategories,'\n ');
 
         $text = Str::of($text)
             ->replace('$$SEHIR$$',$this->form->town->city->city)
