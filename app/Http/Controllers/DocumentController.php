@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Document\VariableController;
 use App\Http\Requests\DocumentStoreRequest;
 use App\Models\Document;
 use App\Models\Documenttype;
+use App\Models\Form;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
 
 class DocumentController extends Controller
 {
@@ -48,7 +52,9 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        return $document;
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('documents.dompdf.documents', ['bodyContent' => (new VariableController(Form::find(1)))->assign($document->document), 'title' => $document->title]);
+        return $pdf->stream();
     }
 
     /**

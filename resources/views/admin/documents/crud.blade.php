@@ -6,7 +6,7 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Rapor Tanımla</h3>
-            {{-- <form id="previewdocument" target="_blank" action="{{ route('documentPreviewAsPDF') }}" enctype="multipart/form-data" method="POST" class="d-inline-block float-right"><textarea type="hidden" name="contentPreview" class="d-none"></textarea> @csrf @method('POST')<button type="submit" class="btn btn-warning" tabindex="0" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="PDF olarak önizle"><i class="fa-solid fa-magnifying-glass"></i></button></form> --}}
+            <form id="previewdocument" target="_blank" action="{{ route('admin.documents.index') }}" enctype="multipart/form-data" method="POST" class="d-inline-block float-right"><textarea type="hidden" name="contentPreview" class="d-none"></textarea> @csrf @method('POST')<button type="submit" class="btn btn-warning" tabindex="0" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="PDF olarak önizle"><i class="fa-solid fa-magnifying-glass"></i></button></form>
         </div>
         <form action="@if(isset($document)) {{ route('admin.documents.update', ['document' => $document]) }} @else {{ route('admin.documents.store') }} @endif" enctype="multipart/form-data" method="POST">
             @csrf
