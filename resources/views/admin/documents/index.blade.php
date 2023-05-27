@@ -1,12 +1,12 @@
 @extends('adminlte::page')
-@section('title', 'dokümanlar')
+@section('title', 'Dokümanlar')
 @section('content_header')
     <h1></h1>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">dokümanlar</h3> <a class="btn btn-success float-right"
+            <h3 class="card-title">Dokümanlar</h3> <a class="btn btn-success float-right"
                 href="{{ route('admin.documents.create') }}">Ekle</a>
         </div>
         <div class="card-body">

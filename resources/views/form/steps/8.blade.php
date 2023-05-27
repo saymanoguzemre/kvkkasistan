@@ -1,6 +1,6 @@
 <form action="">
     <div @class(['hidden' => $this->step != 8])>
-        <x-form-label label="dokümanlarına ulaşabilmen ve ödeme işlemini yapabilmen için üye olman gerekiyor." />
+        <x-form-label label="Dokümanlarına ulaşabilmen ve ödeme işlemini yapabilmen için üye olman gerekiyor." />
         <div class="grid grid-cols-1 md:grid-cols-2 mt-5 gap-x-6">
             <div class="col-span-2">
                 <x-form-input wire:model="fullName" name="fullName" label="Adın Soyadın" id="full_name" />

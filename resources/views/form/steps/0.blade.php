@@ -9,7 +9,7 @@
     <x-form-input wire:model="companyName" name="companyName" label="{{ $companyType == false ? 'Şahıs Adı Soyadı' : 'Şirket Adı ve Ünvanı' }}" id="company_name" />
 
     @if($companyType == true)
-        <x-form-input wire:model="companyNameShort" label="dokümanlarda Tercih Edilen Firma Adı Kısaltması" name="companyNameShort" id="company_name_short" />
+        <x-form-input wire:model="companyNameShort" label="Dokümanlarda Tercih Edilen Firma Adı Kısaltması" name="companyNameShort" id="company_name_short" />
     @endif
 
     <div class="grid md:grid-cols-2 md:gap-x-6">

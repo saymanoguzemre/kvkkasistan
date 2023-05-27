@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 <div class="form-group col-6">
-                    <label for="document_type">doküman Türü</label>
+                    <label for="document_type">Doküman Türü</label>
                     <div class="input-group">
                         <select name="document_type" id="document_type" class="form-control" required>
                             @foreach ($document_types as $dt)
@@ -60,7 +60,7 @@
                     </button>
                 </div>
                 <div class="form-group col-12">
-                    <label for="document-text">doküman</label>
+                    <label for="document-text">Doküman</label>
                     <textarea name="document" id="document-text" required>{{ old('document') ?? ($document->document ?? "") }}</textarea>
                     @error('document')
                         <span class="invalid-feedback" role="alert">

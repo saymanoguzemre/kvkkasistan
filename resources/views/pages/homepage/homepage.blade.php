@@ -142,7 +142,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-medium py-2">doküman Kullanım Rehberi</td>
+                        <td class="font-medium py-2">Doküman Kullanım Rehberi</td>
                         <td>
                             <x-pricing-tick />
                         </td>
