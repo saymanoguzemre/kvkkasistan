@@ -31,17 +31,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/siparislerim', [CustomerPageController::class, 'orders'])->name('customer.orders');
 
     Route::get('/siparis/{referenceNo}', [CustomerPageController::class, 'order'])->name('order.show');
-    Route::get('/siparis/{referenceNo}/odeme', [CustomerPageController::class, 'orderPay'])->name('order.pay');
 
     # PAYMENT
-    Route::get('stripe', [StripeController::class, 'stripe']);
-    Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+    Route::get('/siparis/{referenceNo}/odeme', [StripeController::class, 'stripe'])->name('order.pay');
+    Route::post('/siparis/{referenceNo}/odeme/post', [StripeController::class, 'stripePost'])->name('stripe.post');
 });
 
-Route::get('/deneme', [CustomerPageController::class, 'deneme']);
-Route::get('/deneme2', function () {
-    return Auth::logout(Auth::user());
+Route::get('/deneme', function () {
+    
 });
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

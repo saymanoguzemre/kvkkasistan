@@ -79,3 +79,11 @@
 </div>
 
 @endsection
+
+@section('js')
+    @if (Session::has('success'))
+        <script>
+            toastr.success('Ödeme Başarılı')
+        </script>
+    @endif
+@endsection

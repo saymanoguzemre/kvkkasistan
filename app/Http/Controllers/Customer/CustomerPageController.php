@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Form;
 use Illuminate\Http\Request;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class CustomerPageController extends Controller
 {
@@ -18,18 +20,8 @@ class CustomerPageController extends Controller
 
     public function order($referenceNo)
     {
-        return $referenceNo;
-    }
-
-    public function orderPay($referenceNo)
-    {
         $form = Form::where('referenceNo', $referenceNo)->first();
-        return $form;
-    }
-
-    public function deneme()
-    {
-        return auth('admin')->logout();
-        return auth('admin')->user();
+        $documents = $form->documents;
+        return view('customer.order', ['documents' => $documents]);
     }
 }

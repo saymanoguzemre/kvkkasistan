@@ -19,8 +19,6 @@ Route::middleware(AdminAuthenticate::class)->prefix('admin')->group(function () 
     Route::resource('/documents', DocumentController::class, ['as' => 'admin']);
 });
 
-Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-
 
 /* AUTH ROUTES */
 Route::prefix('admin')->group(function () {

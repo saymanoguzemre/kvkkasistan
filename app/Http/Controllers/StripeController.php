@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Stripe\Charge;
@@ -9,23 +10,19 @@ use Stripe\Stripe;
 
 class StripeController extends Controller
 {
-    public function stripe()
+    public function stripe($referenceNo)
     {
-        return view('stripe');
+        return view('stripe', ['referenceNo' => $referenceNo]);
     }
 
-    public function stripePost(Request $request)
+    public function stripePost(Request $request, $referenceNo)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-        Charge::create ([
-                "amount" => 100*100,
-                "currency" => "INR",
-                "source" => $request->stripeToken,
-                "description" => "This payment is testing purpose of techsolutionstuff",
-        ]);
 
-        Session::flash('success', 'Payment Successfull!');
+        $form = Form::where('referenceNo', $referenceNo);
+        $form->update(['isPaid' => true]);
 
-        return back();
+        Session::flash('success', 'Ödeme başarılı');
+
+        return redirect()->to(route('customer.orders'));
     }
 }

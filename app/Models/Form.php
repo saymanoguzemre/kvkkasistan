@@ -33,4 +33,9 @@ class Form extends Model
     {
         return $this->hasManyThrough(Datacategory::class, DatacategoryForm::class, 'form_id', 'id', 'id', 'datacategory_id');
     }
+
+    public function documents()
+    {
+        return $this->hasManyThrough(Document::class, DocumentForm::class, 'form_id', 'id', 'id', 'document_id');
+    }
 }
