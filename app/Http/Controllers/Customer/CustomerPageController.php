@@ -22,6 +22,6 @@ class CustomerPageController extends Controller
     {
         $form = Form::where('referenceNo', $referenceNo)->first();
         $documents = $form->documents;
-        return view('customer.order', ['documents' => $documents]);
+        return view('customer.order', ['documents' => $documents, 'referenceNo' => $referenceNo]);
     }
 }

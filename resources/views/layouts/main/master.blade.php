@@ -7,7 +7,7 @@
         @livewireStyles
     </head>
 
-    <body class="flex flex-col min-h-screen overflow-x-hidden">
+    <body class="flex flex-col min-h-screen overflow-x-hidden bg-gray-200">
         {{-- HEADER --}}
         @if(Route::currentRouteName() !== 'form.index')
             @include('layouts.main.header.header')

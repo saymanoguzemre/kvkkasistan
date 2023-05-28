@@ -14,13 +14,13 @@
             <div class="mb-3">
                 <label class="font-bold text-sm mb-2 ml-1">Kartın üzerindeki isim</label>
                 <div>
-                    <input class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Ad Soyad" type="text"/>
+                    <input @if(env('APP_DEBUG')) value="Test" @endif  class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Ad Soyad" type="text"/>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="font-bold text-sm mb-2 ml-1">Kart Numarası</label>
                 <div>
-                    <input class="card-number w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="0000000000000000" type="text"/>
+                    <input @if(env('APP_DEBUG')) value="4242424242424242" @endif class="card-number w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="0000000000000000" type="text"/>
                 </div>
             </div>
             <div class="mb-3 -mx-2 flex items-end">
@@ -39,14 +39,14 @@
                             <option value="09">09 - Eylül</option>
                             <option value="10">10 - Ekim</option>
                             <option value="11">11 - Kasım</option>
-                            <option value="12">12 - Aralık</option>
+                            <option @selected(env('APP_DEBUG')) value="12">12 - Aralık</option>
                         </select>
                     </div>
                 </div>
                 <div class="px-2 w-1/2">
                     <select class="card-expiry-year form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer">
                         <option value="23">2023</option>
-                        <option value="24">2024</option>
+                        <option @selected(env('APP_DEBUG')) value="24">2024</option>
                         <option value="25">2025</option>
                         <option value="26">2026</option>
                         <option value="27">2027</option>
@@ -62,10 +62,16 @@
                     </select>
                 </div>
             </div>
-            <div class="mb-10">
-                <label class="font-bold text-sm mb-2 ml-1">Güvenlik kodu</label>
-                <div>
-                    <input class="card-cvc w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="000" type="text"/>
+            <div class="mb-3 -mx-2 flex items-center">
+                <div class="px-2 w-1/2">
+                    <label class="font-bold text-sm mb-2 ml-1">Güvenlik kodu</label>
+                    <div>
+                        <input @if(env('APP_DEBUG')) value="123" @endif  class="card-cvc w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="000" type="text"/>
+                    </div>
+                </div>
+                <div class="px-2 w-1/2">
+                    <label class="font-bold text-sm mb-2 ml-1">Ödeme Tutarı:</label>
+                    {{ number_format($price, 2, ',') }}₺
                 </div>
             </div>
             <div>

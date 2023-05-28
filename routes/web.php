@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Customer\CustomerPageController;
+use App\Http\Controllers\Document\DocumentAssignController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Form\FormController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\StripeController;
+use App\Models\Form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/siparislerim', [CustomerPageController::class, 'orders'])->name('customer.orders');
 
     Route::get('/siparis/{referenceNo}', [CustomerPageController::class, 'order'])->name('order.show');
+    Route::get('/dokuman/indir/{referenceNo}/{documentId}', [DocumentController::class, 'download'])->name('document.download');
+    Route::get('/dokuman/incele/{referenceNo}/{documentId}', [DocumentController::class, 'stream'])->name('document.stream');
 
     # PAYMENT
     Route::get('/siparis/{referenceNo}/odeme', [StripeController::class, 'stripe'])->name('order.pay');
@@ -38,7 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/deneme', function () {
-    
+    (new DocumentAssignController(Form::find(1)))->assign();
 });
 
 

@@ -12,7 +12,14 @@ class StripeController extends Controller
 {
     public function stripe($referenceNo)
     {
-        return view('stripe', ['referenceNo' => $referenceNo]);
+        $form = Form::where('referenceNo', $referenceNo)->first();
+        switch ($form->orderType) {
+            case 1: $price = 100; break;
+            case 2: $price = 200; break;
+            case 3: $price = 300; break;
+            default: $price = 100; break;
+        }
+        return view('stripe', ['referenceNo' => $referenceNo, 'price' => $price]);
     }
 
     public function stripePost(Request $request, $referenceNo)

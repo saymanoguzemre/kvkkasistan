@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class DocumentForm extends Pivot
 {
-    //
+    public $timestamps = false;
 }

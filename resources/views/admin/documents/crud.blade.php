@@ -5,8 +5,8 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Rapor Tanımla</h3>
-            <form id="previewdocument" target="_blank" action="{{ route('admin.documents.index') }}" enctype="multipart/form-data" method="POST" class="d-inline-block float-right"><textarea type="hidden" name="contentPreview" class="d-none"></textarea> @csrf @method('POST')<button type="submit" class="btn btn-warning" tabindex="0" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="PDF olarak önizle"><i class="fa-solid fa-magnifying-glass"></i></button></form>
+            <h3 class="card-title">Doküman Tanımla</h3>
+            <form id="previewdocument" target="_blank" action="{{ route('document.preview', ['documentId' => $document->id]) }}" enctype="multipart/form-data" method="POST" class="d-inline-block float-right"><textarea type="hidden" name="contentPreview" class="d-none"></textarea> @csrf @method('POST')<button type="submit" class="btn btn-warning" tabindex="0" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="PDF olarak önizle"><i class="fa-solid fa-magnifying-glass"></i></button></form>
         </div>
         <form action="@if(isset($document)) {{ route('admin.documents.update', ['document' => $document]) }} @else {{ route('admin.documents.store') }} @endif" enctype="multipart/form-data" method="POST">
             @csrf
@@ -60,8 +60,8 @@
                     </button>
                 </div>
                 <div class="form-group col-12">
-                    <label for="document-text">Doküman</label>
-                    <textarea name="document" id="document-text" required>{{ old('document') ?? ($document->document ?? "") }}</textarea>
+                    <label for="document_text">Doküman</label>
+                    <textarea name="document" id="document_text" required>{{ old('document') ?? ($document->document ?? "") }}</textarea>
                     @error('document')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -104,7 +104,7 @@
 @endsection
 @section('js')
 <script>
-    CKEDITOR.replace('document-text', {
+    CKEDITOR.replace('document_text', {
         language: "tr",
 
         alignment: {
@@ -138,7 +138,7 @@
 <script>
     $('#previewdocument').on('submit', function (e) {
         e.preventDefault();
-        $('[name="contentPreview"]').val(CKEDITOR.instances.content.getData());
+        $('[name="contentPreview"]').val(CKEDITOR.instances.document_text.getData());
         this.submit();
         $('[name="contentPreview"]').val('');
     })

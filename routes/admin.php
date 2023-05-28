@@ -17,6 +17,7 @@ use App\Http\Controllers\DocumentController;
 Route::middleware(AdminAuthenticate::class)->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('/documents', DocumentController::class, ['as' => 'admin']);
+    Route::post('/preview/{documentId}', [DocumentController::class, 'preview'])->name('document.preview');
 });
 
 

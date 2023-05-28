@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Document\VariableController;
 use App\Http\Requests\DocumentStoreRequest;
 use App\Models\Document;
+use App\Models\DocumentForm;
 use App\Models\Documenttype;
 use App\Models\Form;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 
 class DocumentController extends Controller
@@ -88,5 +89,50 @@ class DocumentController extends Controller
     {
         $document->delete();
         return redirect()->route('admin.documents.index');
+    }
+
+    public function download($referenceNo, $documentId)
+    {
+        $form = Form::where('referenceNo', $referenceNo)->first();
+        if(!$form)
+            abort(404);
+        if(DocumentForm::where('form_id', $form->id)->where('document_id', $documentId)->count())
+        {
+            $document = Document::find($documentId);
+            $pdf = $this->makePdf($form, $document);
+            return $pdf->download($document->documenttype->documenttype.'.pdf');
+        }
+
+        return abort(404);
+    }
+
+    public function stream($referenceNo, $documentId)
+    {
+        $form = Form::where('referenceNo', $referenceNo)->first();
+        if(!$form)
+            abort(404);
+        if(DocumentForm::where('form_id', $form->id)->where('document_id', $documentId)->count())
+        {
+            $document = Document::find($documentId);
+            $pdf = $this->makePdf($form, $document);
+            return $pdf->stream($document->documenttype->documenttype.'.pdf');
+        }
+
+        return abort(404);
+    }
+
+    public function makePdf(Form $form, Document $document): PDF
+    {
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('documents.dompdf.documents', ['bodyContent' => (new VariableController($form))->assign($document->document), 'title' => $document->title]);
+        return $pdf;
+    }
+
+    public function preview($documentId)
+    {
+        $document = Document::find($documentId);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('documents.dompdf.documents', ['bodyContent' => $document->document, 'title' => $document->title]);
+        return $pdf->stream($document->documenttype->documenttype.'.pdf');;
     }
 }

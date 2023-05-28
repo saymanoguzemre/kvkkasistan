@@ -1,4 +1,4 @@
-<nav class="w-full text-white dark:bg-slate-900 flex p-4 items-center justify-between z-[60]">
+<nav class="w-full text-white dark:bg-slate-900 flex p-4 items-center justify-between z-[60] bg-white">
     <a href="/">
         <div class="inline-flex space-x-2 mr-4">
             <div class="h-8 w-auto">

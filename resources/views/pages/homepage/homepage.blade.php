@@ -52,7 +52,7 @@
             </ul>
             <div class="flex justify-center items-center">
                 <div class="mt-16 w-full max-w-xs">
-                    <a class="bg-blue-600 w-full px-6 py-3 text-white text-lg hover:bg-blue-700 rounded-full" href="/register">Üyelik oluştur</a>
+                    <a class="bg-blue-600 w-full px-6 py-3 text-white text-lg hover:bg-blue-700 rounded-full" href="/register">@auth Siparişlerini Gör @else Üyelik oluştur @endauth</a>
                 </div>
             </div>
         </div>
