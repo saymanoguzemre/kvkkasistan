@@ -5,12 +5,11 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Doküman Tanımla</h3>
-            <form id="previewdocument" target="_blank" action="{{ route('document.preview') }}" enctype="multipart/form-data" method="POST" class="d-inline-block float-right"><textarea type="hidden" name="contentPreview" class="d-none"></textarea> @csrf @method('POST')<button type="submit" class="btn btn-warning" tabindex="0" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="PDF olarak önizle"><i class="fa-solid fa-magnifying-glass"></i></button></form>
+            <h3 class="card-title">Aydınlatma Metni</h3>
         </div>
-        <form action="@if(isset($document)) {{ route('admin.documents.update', ['document' => $document]) }} @else {{ route('admin.documents.store') }} @endif" enctype="multipart/form-data" method="POST">
+        <form action="@if(isset($sitesetting)) {{ route('admin.sitesettings.update', ['sitesetting' => $sitesetting]) }} @else {{ route('admin.sitesettings.store') }} @endif" enctype="multipart/form-data" method="POST">
             @csrf
-            @if(isset($document))
+            @if(isset($sitesetting))
             @method('PATCH')
             @else
             @method('POST')
@@ -18,51 +17,18 @@
         <div class="card-body">
             <div class="row">
                 <div class="form-group col-6">
-                    <label for="title">Başlık <small>(Bunu sadece siz görürsünüz. Müşterinin önüne çıkmaz)</small></label>
-                    <input type="text" class="form-control" name="title" placeholder="Örn: Açık Rıza Metni Mayıs 2023" required maxlength="255" value="{{ old('title') ?? ($document->title ?? "") }}" />
+                    <label for="title">Başlık</label>
+                    <input type="text" class="form-control" name="title" placeholder="Örn: Açık Rıza Metni Mayıs 2023" required maxlength="255" value="{{ old('title') ?? ($sitesetting->key ?? "") }}" />
                     @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-                <div class="form-group col-6">
-                    <label for="document_type">Doküman Türü</label>
-                    <div class="input-group">
-                        <select name="document_type" id="document_type" class="form-control" required>
-                            @foreach ($document_types as $dt)
-                                <option @selected(old('documenttype') == $dt->id || (isset($document) && $document->documenttype->id == $dt->id)) value="{{ $dt->id }}">{{ $dt->documenttype }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @error('document_type')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-
-                </div>
-                <div class="form-group col-6">
-                    <label class="form-label">Durum</label>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" name="active" class="custom-control-input" id="customSwitch1" @checked(old('active') ?? ($document->active) ?? "0")>
-                        <label class="custom-control-label" for="customSwitch1">Bunu aktif, (varsa) aynı türdeki dokümanı pasif yap.</label>
-                    </div>
-                    @error('active')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                {{-- <div class="form-group col-12">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Değişkenleri Gör
-                    </button>
-                </div> --}}
                 <div class="form-group col-12">
-                    <label for="document_text">Doküman</label>
-                    <textarea name="document" id="document_text" required>{{ old('document') ?? ($document->document ?? "") }}</textarea>
-                    @error('document')
+                    <label for="document_text">İçerik</label>
+                    <textarea name="document" id="document_text" required>{{ old('document_text') ?? ($sitesetting->content ?? "") }}</textarea>
+                    @error('document_text')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

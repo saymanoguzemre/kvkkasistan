@@ -1,44 +1,21 @@
 <div @class(['hidden' => $this->step != 1])>
-    <div class="col-span-2 grid grid-cols-2 gap-4 border-b pb-4">
-        {{-- @livewire('town-dropdown') --}}
-
-        <div class="grid grid-cols-2 col-span-2 gap-4">
-            <div class="input-group col-span-1">
-                <x-form-select label="İl" name="city" wire:model="city" class="form-input-text select2 w-full">
-                    <option value="">---İl---</option>
-                    @foreach($cities as $city)
-                        <option value={{ $city->id }}>{{ $city->city }}</option>
-                    @endforeach
-                </x-form-select >
-            </div>
-            @if(count($cities) > 0)
-                <div class="input-group col-span-1">
-                    <x-form-select label="İlçe" name="town" wire:model="town" class="form-input-text select2 w-full">
-                        <option value="">---İlçe---</option>
-                        @foreach($towns as $town)
-                            <option value={{ $town->id }}>{{ $town->town }}</option>
-                        @endforeach
-                    </x-form-select >
-                </div>
-            @endif
-        </div>
-
-
-        <div class="input-group col-span-2">
-            <label for="address" class="form-input-label block">Açık Adres*</label>
-            <x-form-textarea wire:model="address" class="form-input-text w-full" name="address" id="address" rows="2"></x-form-textarea>
-        </div>
-    </div>
-
-    <x-form-input wire:model="telNo" label="Telefon No*" name="telNo" id="tel_no" />
-
-    <x-form-group>
-        <div class="grid md:grid-cols-2 md:gap-x-6">
-            <x-form-label class="col-span-2" label="Kep Adresi Var Mı?*"/>
-            <x-form-radio wire:model="mailType" wire:click="mailType(false)" id="has_kep_address_0" value="0" name="hasKepAddress" label="Yok" />
-            <x-form-radio wire:model="mailType" wire:click="mailType(true)" id="has_kep_address_1" value="1" name="hasKepAddress" label="Var"/>
-        </div>
+    <x-form-group class="mt-0" name="companyType" label="Şirket Türü*" inline>
+        <x-form-radio wire:model="companyType" class="mt-0" wire:click="companyType(false)" id="company_type_1" type="radio" value="0" name="companyType" label="Gerçek Kişi" />
+        <x-form-radio wire:model="companyType" class="mt-0" wire:click="companyType(true)" id="company_type_0" type="radio" value="1" name="companyType" label="Tüzel Kişi" />
     </x-form-group>
 
-    <x-form-input wire:model="mailAddress" type="email" label="{{ $mailType == false ? 'Kurumsal E-Posta Adresi' : 'KEP Adresi' }}*" name="mailAddress" id="mail_address" />
+    <x-form-input wire:model.defer="companyName" name="companyName" label="{{ $companyType == false ? 'Şahıs Adı Soyadı' : 'Şirket Adı ve Ünvanı' }}" id="company_name" />
+
+    @if($companyType == true)
+        <x-form-input wire:model.defer="companyNameShort" label="Dokümanlarda Tercih Edilen Firma Adı Kısaltması" name="companyNameShort" id="company_name_short" />
+    @endif
+
+    <div class="grid md:grid-cols-2 md:gap-x-6">
+        <x-form-input wire:model.defer="taxNo" label="Vergi No*" name="taxNo" id="tax_no" />
+        <x-form-input wire:model.defer="taxOffice" label="Vergi Dairesi*" name="taxOffice" id="tax_office" />
+        <x-form-input wire:model.defer="tradingNo" label="Ticaret/Esnaf Sicil No*" name="tradingNo" id="trading_no" />
+        <x-form-input wire:model.defer="mersisNo" label="Mersis No*" name="mersisNo" id="mersis_no" />
+    </div>
+    <x-form-label class="col-span-2" label="Logo" for="logo" />
+    <input class="block w-full text-sm text-gray-900 border border-gray-300  rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"  id="logo" type="file">
 </div>

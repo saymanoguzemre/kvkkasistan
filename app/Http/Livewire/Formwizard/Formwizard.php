@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Datacategory;
 use App\Models\Datashare;
 use App\Models\Datastorage;
+use App\Models\Form;
 use App\Models\Infopurpose;
 use App\Models\Town;
 use Illuminate\Support\Facades\File;
@@ -40,6 +41,7 @@ class Formwizard extends Component
     public int $isVerified;
     public int $dataStorageTime = 6;
     public int $dataStorageTimeType = 2;
+    public int $orderType;
 
     public $logo, $city, $town, $privacyPolicy, $consentForm, $logoPath;
 
@@ -52,20 +54,23 @@ class Formwizard extends Component
     public array $datashare = [1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0];
     public array $datastorage = [1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0];
 
+    public Form $form;
+
 
 
     public array $step_titles = [
-        0 => 'Şirket Bilgileri',
-        1 => 'Adres Bilgileri',
-        2 => 'Kurumsal Bilgiler',
-        3 => 'İşlenen Veri Bilgileri',
+        0 => 'Sipariş Tipi',
+        1 => 'Şirket Bilgileri',
+        2 => 'Adres Bilgileri',
+        3 => 'Kurumsal Bilgiler',
         4 => 'İşlenen Veri Bilgileri',
         5 => 'İşlenen Veri Bilgileri',
         6 => 'İşlenen Veri Bilgileri',
-        7 => 'Veri Saklama Süresi',
-        8 => 'Üyelik Bilgileri',
-        9 => 'Giriş Yap',
-        10 => 'E-Postanı Doğrula',
+        7 => 'İşlenen Veri Bilgileri',
+        8 => 'Veri Saklama Süresi',
+        9 => 'Üyelik Bilgileri',
+        10 => 'Giriş Yap',
+        11 => 'E-Postanı Doğrula',
     ];
 
     public function mount()
@@ -76,6 +81,7 @@ class Formwizard extends Component
         $this->electronicDatastorages = Datastorage::where('type', true)->get();
         $this->cities = City::orderBy('id')->get();
         $this->dataCategories = Datacategory::all();
+        $this->orderType = request()->input('type') ?? 1;
     }
 
     public function rules()
@@ -117,6 +123,10 @@ class Formwizard extends Component
     {
         if($this->step == 0)
         {
+            $this->validateOnly('orderType');
+        }
+        else if($this->step == 1)
+        {
             $this->validateOnly('companyName');
             $this->validateOnly('companyType');
             $this->validateOnly('companyNameShort');
@@ -126,7 +136,7 @@ class Formwizard extends Component
             $this->validateOnly('mersisNo');
             $this->validateOnly('logo');
         }
-        else if($this->step == 1)
+        else if($this->step == 2)
         {
             $this->validateOnly('city');
             $this->validateOnly('town');
@@ -135,27 +145,30 @@ class Formwizard extends Component
             $this->validateOnly('mailAddress');
             $this->validateOnly('mailType');
         }
-        else if($this->step == 2)
+        else if($this->step == 3)
         {
             $this->validateOnly('website');
             $this->validateOnly('court');
             $this->validateOnly('subjectTitle');
             $this->validateOnly('hasPersonal');
         }
-        else if($this->step == 7)
+        else if($this->step == 8)
         {
+
             if(Auth::check())
             {
                 if(Auth::user()->email_verified_at == null) {
-                    $this->step == 9;
+                    $this->step = 10;
                 }
                 else
                 {
                     $this->saveForm();
+                    $this->step = 11;
+                    $this->dispatchBrowserEvent('gotopayment', ['paymenturl' => route('order.pay', ['referenceNo' => $this->form->referenceNo])]);
                 }
             }
         }
-        else if($this->step == 8)
+        else if($this->step == 9)
         {
             $this->validateOnly('fullName');
             $this->validateOnly('customerEmail');
@@ -172,14 +185,14 @@ class Formwizard extends Component
                 $this->step++;
             }
         }
-        else if($this->step == 9)
+        else if($this->step == 10)
         {
             $this->validateOnly('registeredPassword');
 
             if(!$this->tryLogin()) return;
             else $this->step++;
         }
-        else if($this->step == 10)
+        else if($this->step == 11)
         {
             $this->validateOnly('verificationCode');
             $this->isVerified = (new CustomerController())->verifyByEmail($this->verificationCode, $this->customerEmail);
@@ -188,8 +201,8 @@ class Formwizard extends Component
                 $this->verificationCode = "";
                 return;
             }
-
             $this->saveForm();
+            $this->dispatchBrowserEvent('gotopayment', ['paymenturl' => route('order.pay', ['referenceNo' => $this->form->referenceNo])]);
         }
 
         $this->step++;
@@ -211,6 +224,11 @@ class Formwizard extends Component
         $formRequest->setMethod('POST');
         $formRequest->request->add([
             /* STEP 0 */
+            'orderType' => $this->orderType,
+            /* STEP 0 */
+
+
+            /* STEP 1 */
             'companyType' => $this->companyType,
             'companyName' => $this->companyName,
             'companyNameShort' => $this->companyNameShort ?? null,
@@ -219,46 +237,46 @@ class Formwizard extends Component
             'tradingNo' => $this->tradingNo,
             'mersisNo' => $this->mersisNo,
             'logoPath' => $this->logoPath,
-            /* STEP 0 */
-
             /* STEP 1 */
+
+            /* STEP 2 */
             'town' => $this->town,
             'address' => $this->address,
             'telNo' => $this->telNo,
             'mailType' => $this->mailType,
             'mailAddress' => $this->mailAddress,
-            /* STEP 1 */
-
             /* STEP 2 */
+
+            /* STEP 3 */
             'website' => $this->website ?? null,
             'court' => $this->court,
             'subjectTitle' => $this->subjectTitle,
             'hasPersonal' => $this->hasPersonal,
-            /* STEP 2 */
-
             /* STEP 3 */
+
+            /* STEP 4 */
             'personal' => $this->personel,
             'musteri' => $this->musteri,
-            /* STEP 3 */
-
             /* STEP 4 */
+
+            /* STEP 5 */
             'infopurpose' => $this->infopurpose,
-            /* STEP 4 */
-
             /* STEP 5 */
+
+            /* STEP 6 */
             'datashare' => $this->datashare,
-            /* STEP 5 */
-
             /* STEP 6 */
+
+            /* STEP 7 */
             'datastorage' => $this->datastorage,
-            /* STEP 6 */
+            /* STEP 7 */
 
-            /* STEP 6 */
+            /* STEP 8 */
             'dataStorageTime' => $this->dataStorageTime,
             'dataStorageTimeType' => $this->dataStorageTimeType,
-            /* STEP 6 */
+            /* STEP 8 */
         ]);
-        (new FormController)->store($formRequest);
+        $this->form = (new FormController)->store($formRequest);
     }
 
     public function tryLogin(): bool

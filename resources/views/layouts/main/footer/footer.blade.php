@@ -16,6 +16,14 @@
                 <a href="#"
                     class="text-zinc-900 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400">Blog</a>
             </li>
+            <li class="mt-2">
+                <a href="/aydinlatma-metni"
+                    class="text-zinc-900 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400">Aydınlatma Metni</a>
+            </li>
+            <li class="mt-2">
+                <a href="/acik-riza-metni"
+                    class="text-zinc-900 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400">Açık Rıza Metni</a>
+            </li>
         </ul>
         <ul>
             <li class="text-zinc-900 dark:text-zinc-100 font-bold text-lg">Hızlı Linkler</li>

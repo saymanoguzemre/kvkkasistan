@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Form;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Document\DocumentAssignController;
 use App\Models\DatacategoryForm;
 use App\Models\DatashareForm;
 use App\Models\DatastorageForm;
@@ -64,6 +65,8 @@ class FormController extends Controller
 
         $form->save();
 
+        (new DocumentAssignController($form))->assign();
+
         foreach ($request->musteri as $key => $dcc) {
             if($dcc == 1 || $dcc == true || $dcc == '1')
             {
@@ -114,7 +117,7 @@ class FormController extends Controller
 
 
 
-        return dd($form);
+        return $form;
     }
 
     /**

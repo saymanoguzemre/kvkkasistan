@@ -29,6 +29,7 @@ class CustomerController extends Controller
             'name' => $request->fullName,
             'email' => $request->customerEmail,
             'password' => Hash::make($request->password),
+            'email_verified_at' => now(),
             'ip' => $request->ip(),
         ]);
 

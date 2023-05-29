@@ -1,8 +1,23 @@
-<div @class(['hidden' => $this->step != 9])>
-    <span class="text-gray-700"><b>{{ $customerEmail ?? "" }}</b> ile zaten bir kayıt yapılmış. Bu hesap senin ise aşağıdan giriş yap. Senin değil ise geri gidip başka bir e-posta adresi ile kayıt olmayı dene.</span>
-    <div class="grid grid-cols-1 md:grid-cols-7 mt-5 gap-x-6">
-        <div class="col-span-5 col-start-2">
-            <x-form-input wire:model.defer="registeredPassword" name="registeredPassword" type="password" label="Şifre" id="registered_password" />
+<form action="">
+    <div @class(['hidden' => $this->step != 9])>
+        <x-form-label label="Dokümanlarına ulaşabilmen ve ödeme işlemini yapabilmen için üye olman gerekiyor." />
+        <div class="grid grid-cols-1 md:grid-cols-2 mt-5 gap-x-6">
+            <div class="col-span-2">
+                <x-form-input wire:model="fullName" name="fullName" label="Adın Soyadın" id="full_name" />
+            </div>
+            <div class="col-span-2">
+                <x-form-input wire:model="customerEmail" type="email" label="E-Posta Adresin" name="customerEmail" id="customer_email" />
+            </div>
+            <div>
+                <x-form-input wire:model="password" type="password" label="Şifren" name="password" id="password" />
+            </div>
+            <div>
+                <x-form-input wire:model="passwordAgain" type="password" label="Şifre Tekrar" name="passwordAgain" id="password_again" />
+            </div>
+            <div class="col-span-2 mt-4">
+                <x-form-checkbox wire:model="consentForm" value="1" label="Açık Rıza Onay Formu'nu okudum, kabul ediyorum." name="consentForm" id="consent_form" />
+                <x-form-checkbox wire:model="privacyPolicy" value="1" label="Aydınlatma Beyanı'nı okudum, kabul ediyorum." name="privacyPolicy" id="privacy_policy" />
+            </div>
         </div>
     </div>
-</div>
+</form>

@@ -23,6 +23,7 @@ class FormStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'orderType' => 'required',
             'companyName' => 'required',
             'companyType' => 'required|boolean',
             'companyNameShort' => '',

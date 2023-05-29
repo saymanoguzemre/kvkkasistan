@@ -63,7 +63,7 @@
     </div>
 @endsection
 @section('plugins.datatables', true)
-@section('plugins.swal')
+@section('plugins.swal', true)
 @section('js')
     <script>
         $(function() {

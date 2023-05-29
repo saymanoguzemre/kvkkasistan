@@ -39,7 +39,14 @@ class DocumentController extends Controller
         $document->documenttype_id = $request->document_type;
         $document->title = $request->title;
         $document->document = $request->document;
-        $document->active = isset($request->active) ? 1 : 0;
+        if(isset($request->active)) {
+            $document->active = 1;
+            Document::where('documenttype_id', $request->document_type)->where('active', 1)->where('id', '<>', $document->id)->update(['active' => 0]);
+        }
+        else
+        {
+            $document->active = 0;
+        }
 
 
         if($document->save())
@@ -74,7 +81,14 @@ class DocumentController extends Controller
         $document->documenttype_id = $request->document_type;
         $document->title = $request->title;
         $document->document = $request->document;
-        $document->active = isset($request->active) ? 1 : 0;
+        if(isset($request->active)) {
+            $document->active = 1;
+            Document::where('documenttype_id', $request->document_type)->where('active', 1)->where('id', '<>', $document->id)->update(['active' => 0]);
+        }
+        else
+        {
+            $document->active = 0;
+        }
 
 
         if($document->save())
@@ -128,11 +142,10 @@ class DocumentController extends Controller
         return $pdf;
     }
 
-    public function preview($documentId)
+    public function preview(Request $request)
     {
-        $document = Document::find($documentId);
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('documents.dompdf.documents', ['bodyContent' => $document->document, 'title' => $document->title]);
-        return $pdf->stream($document->documenttype->documenttype.'.pdf');;
+        $pdf->loadView('documents.dompdf.documents', ['bodyContent' => $request->contentPreview, 'title' => 'Önizleme']);
+        return $pdf->stream();
     }
 }

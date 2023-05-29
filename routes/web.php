@@ -1,14 +1,11 @@
 <?php
 
 use App\Http\Controllers\Customer\CustomerPageController;
-use App\Http\Controllers\Document\DocumentAssignController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Form\FormController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\StripeController;
-use App\Models\Form;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [RouteController::class, 'homepage'])->name('homepage');
 Route::resource('/form', FormController::class);
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [CustomerPageController::class, 'index'])->name('dashboard');
     Route::get('/profil/duzenle', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,9 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/siparis/{referenceNo}/odeme/post', [StripeController::class, 'stripePost'])->name('stripe.post');
 });
 
-Route::get('/deneme', function () {
-    (new DocumentAssignController(Form::find(1)))->assign();
-});
+Route::get('/aydinlatma-metni', [RouteController::class, 'aydinlatma']);
+Route::get('/acik-riza-metni', [RouteController::class, 'acikriza']);
 
 
 require __DIR__.'/auth.php';

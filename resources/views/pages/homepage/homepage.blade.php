@@ -73,7 +73,7 @@
                         <span class="">
                             <span class="text-4xl">100₺ </span>
                         </span>
-                        <button class="bg-slate-700 text-slate-100 px-6 py-2 rounded-lg">Seç</button>
+                        <a href="/form?type=1" class="bg-slate-700 text-slate-100 px-6 py-2 rounded-lg">Seç</a>
                     </li>
                     <li
                         class="flex flex-col gap-2 bg-slate-100 dark:bg-transparent dark:border dark:border-slate-600 py-6 px-4 rounded-xl">
@@ -82,7 +82,7 @@
                         <span class="">
                             <span class="text-4xl">200₺ </span>
                         </span>
-                        <button class="bg-slate-700 text-slate-100 px-6 py-2 rounded-lg">Seç</button>
+                        <a href="/form?type=2" class="bg-slate-700 text-slate-100 px-6 py-2 rounded-lg">Seç</a>
                     </li>
                     <li
                         class="flex flex-col gap-2 bg-slate-100 dark:bg-transparent dark:border dark:border-slate-600 py-6 px-4 rounded-xl">
@@ -91,7 +91,7 @@
                         <span class="">
                             <span class="text-4xl">300₺ </span>
                         </span>
-                        <button class="bg-slate-700 text-slate-100 px-6 py-2 rounded-lg">Seç</button>
+                        <a href="/form?type=3" class="bg-slate-700 text-slate-100 px-6 py-2 rounded-lg">Seç</a>
                     </li>
                 </ul>
             </div>
@@ -178,7 +178,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-medium py-2">Çerez Know-How</td>
+                        <td class="font-medium py-2">Çerez Rehberi</td>
                         <td>
                             <x-pricing-x />
                         </td>

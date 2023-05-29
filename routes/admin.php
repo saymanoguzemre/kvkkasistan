@@ -13,11 +13,13 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\Admin\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\SitesettingController;
 
 Route::middleware(AdminAuthenticate::class)->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('/documents', DocumentController::class, ['as' => 'admin']);
-    Route::post('/preview/{documentId}', [DocumentController::class, 'preview'])->name('document.preview');
+    Route::post('/preview', [DocumentController::class, 'preview'])->name('document.preview');
+    Route::resource('/sitesettings', SitesettingController::class, ['as' => 'admin']);
 });
 
 
