@@ -35,7 +35,7 @@ class FormController extends Controller
      */
     public function store(FormRequest $request)
     {
-        $formcount = Form::whereDate('created_at', Carbon::today())->count();
+        $formcount = Form::whereDate('created_at', today())->count();
         $form = new Form();
 
 
