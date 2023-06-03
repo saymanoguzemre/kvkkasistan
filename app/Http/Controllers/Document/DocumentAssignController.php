@@ -24,7 +24,7 @@ class DocumentAssignController extends Controller
 
         if($this->form->orderType == 1)
         {
-            $documents = $documents->whereIn('documenttype_id', [1,2,3,4,5,6,]);
+            $documents = $documents->whereIn('documenttype_id', [1,2,3,4,5,6]);
         }
         elseif($this->form->orderType == 2)
         {
