@@ -61,6 +61,7 @@ class FormController extends Controller
         $form->dataStorageTime = $request->dataStorageTime;
         $form->dataStorageTimeType = $request->dataStorageTimeType;
         $form->isPaid = 0;
+        $form->orderType = $request->orderType ?? 1;
 
         $form->save();
 
