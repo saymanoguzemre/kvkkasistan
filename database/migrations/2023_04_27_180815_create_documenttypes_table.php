@@ -29,7 +29,6 @@ return new class extends Migration
             ['documenttype' => 'Kişisel Verilerin Korunması ve İşlenmesi Politikası'],
             ['documenttype' => 'Kişisel Veri Saklama ve İmha Politikasi'],
             ['documenttype' => 'Özel Nitelikli Kişisel Verilerin Korunması ve İşlenmesi Politikası'],
-            ['documenttype' => 'Bilgi Güvenliği Politikaları'],
             ['documenttype' => 'Personel Gizlilik Sözleşmesi'],
             ['documenttype' => 'Tedarikçi Gizlilik Sözleşmesi'],
             ['documenttype' => 'Satın Alma Gizlilik Sözleşmesi'],

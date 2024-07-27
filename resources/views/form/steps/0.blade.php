@@ -160,18 +160,7 @@
                     <x-pricing-tick />
                 </td>
             </tr> --}}
-            <tr>
-                <td class="font-medium py-2">Bilgi Güvenliği Yönetimi</td>
-                <td>
-                    <x-pricing-x />
-                </td>
-                <td>
-                    <x-pricing-x />
-                </td>
-                <td>
-                    <x-pricing-tick />
-                </td>
-            </tr>
+
             <tr>
                 <td class="font-medium py-2">KVK Uyum Rehberi</td>
                 <td>
