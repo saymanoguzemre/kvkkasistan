@@ -3,7 +3,11 @@
         <div class="card flex flex-col h-full w-full relative bg-white rounded-md">
             <div class="card-header flex justify-between py-2 px-2 border-b">
                 <div>
-                    <button @if($step == 0) disabled @endif wire:click="prevStep()" class="disabled:hover:bg-transparent disabled:hover:text-gray-400 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button @if($step == 0) disabled @endif wire:click="prevStep()"
+                        @class([
+                            'disabled:hover:bg-transparent disabled:hover:text-gray-400 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white',
+                            'hidden' => $step == 0
+                        ])>
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
                     </button>
                 </div>
