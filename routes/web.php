@@ -5,7 +5,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Form\FormController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RouteController;
-use App\Http\Controllers\StripeController;
+use App\Http\Controllers\EsnekPosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,8 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dokuman/incele/{referenceNo}/{documentId}', [DocumentController::class, 'stream'])->name('document.stream');
 
     # PAYMENT
-    Route::get('/siparis/{referenceNo}/odeme', [StripeController::class, 'stripe'])->name('order.pay');
-    Route::post('/siparis/{referenceNo}/odeme/post', [StripeController::class, 'stripePost'])->name('stripe.post');
+    Route::get('/siparis/{referenceNo}/odeme', [EsnekPosController::class, 'create'])->name('order.pay');
+    Route::post('/siparis/{referenceNo}/odeme/post', [EsnekPosController::class, 'post'])->name('payment.post');
 });
 
 Route::get('/aydinlatma-metni', [RouteController::class, 'aydinlatma']);
