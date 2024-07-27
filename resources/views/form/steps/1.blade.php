@@ -6,9 +6,8 @@
 
     <x-form-input wire:model.defer="companyName" name="companyName" label="{{ $companyType == false ? 'Şahıs Adı Soyadı' : 'Şirket Adı ve Ünvanı' }}" id="company_name" />
 
-    @if($companyType == true)
-        <x-form-input wire:model.defer="companyNameShort" label="Dokümanlarda Tercih Edilen Firma Adı Kısaltması" name="companyNameShort" id="company_name_short" />
-    @endif
+    <x-form-input wire:model.defer="companyNameShort" label="Dokümanlarda Tercih Edilen Firma Adı Kısaltması" name="companyNameShort" id="company_name_short" />
+
 
     <div class="grid md:grid-cols-2 md:gap-x-6">
         <x-form-input wire:model.defer="taxNo" label="Vergi No*" name="taxNo" id="tax_no" />
